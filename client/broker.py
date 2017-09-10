@@ -1,17 +1,20 @@
-# -*- coding: utf-8 -*-
-# @Author: dhananjaysharma
-# @Date:   2017-09-08 15:27:28
-# @Last Modified by:   dhananjaysharma
-# @Last Modified time: 2017-09-08 17:54:59
+#!/usr/bin/python
 import threading
+import time
+import subprocess
 
-class BrokerThread(threading.Thread):
-	
-	def __init__(self,threadId,threadName):
-		threading.Thread.__init__(self)
-		self.threadId=threadId
-		self.threadName=threadName
+class BrokerThread (threading.Thread):
+   def __init__(self, threadID, name):
+      threading.Thread.__init__(self)
+      self.threadID = threadID
+      self.name = name
 
-	def run(self):
-		print "data"
-		pass
+   def run(self):
+      print "Starting " + time.ctime(time.time())
+      subprocess.call(['sh','/Users/dhananjaysharma/Workspace/webcache/snsclient/client/basic.sh'])      
+      print "Exiting " + time.ctime(time.time())
+
+# broker1 = BrokerThread(1, "broker-1")
+# broker1.start()
+# print "out of loop"
+

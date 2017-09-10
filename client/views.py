@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import json
 import requests
+from broker import BrokerThread
+import subprocess
 
 def handle_subscribe( request ):
 	print "in subscribe"
@@ -18,6 +20,9 @@ def handle_msg( request):
 	try:
 		body = json.loads(request.body)
 		print body
+		broker1 = BrokerThread(1, "broker-1")
+		broker1.start()
+		return
 	except Exception as e:
 		raise Exception( "Error in handle_msg" + str(e))
 
@@ -25,6 +30,7 @@ def handle_unsubscribe( request):
 	try:
 			body = json.loads(request.body)
 			print body
+
 	except Exception as e:
 		raise Exception( "Error in handle_unsubscribe" + str(e))
 
@@ -36,7 +42,6 @@ function = {
 }
 
 # Create your views here.
-
 def handle_notification( request ):
 	print request.method
 	if request.method =='POST':
